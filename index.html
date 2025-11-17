@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ewin's Diary</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --pink:#ffb6ff;
+  --soft-pink:#ffe6ff;
+  --purple:#b27eff;
+  --white:#fff;
+}
+
+/* RESET */
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Poppins",sans-serif;
+  background: linear-gradient(180deg, #ffeaff, #f7ddff, #eed2ff);
+  overflow-x:hidden;
+  color:#4a306d;
+}
+
+/* -------------------- KUROMI FLYING BACKGROUND -------------------- */
+
+.kuromi-bg{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:url("kuromi-fly.png");
+  background-size:120px;
+  opacity:0.25;
+  animation:bgFloat 18s linear infinite;
+}
+@keyframes bgFloat{
+  0%{background-position:0 0;}
+  100%{background-position:800px 1200px;}
+}
+
+/* -------------------- KUROMI CURTAIN -------------------- */
+
+#curtain-left, #curtain-right{
+  position:fixed;
+  top:0;
+  width:50%;
+  height:100%;
+  background:url("kuromi-curtain.png") no-repeat center;
+  background-size:cover;
+  z-index:9999;
+}
+#curtain-left{
+  left:0;
+  animation:openLeft 2.2s ease forwards;
+}
+#curtain-right{
+  right:0;
+  animation:openRight 2.2s ease forwards;
+}
+
+@keyframes openLeft{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
+}
+@keyframes openRight{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(100%);}
+}
+
+#welcome{
+  position:fixed;
+  top:40%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  z-index:99999;
+  font-size:26px;
+  font-weight:700;
+  color:#fff;
+  text-shadow:0 0 10px #b27eff;
+  animation:fadeText 2.5s ease forwards;
+}
+@keyframes fadeText{
+  0%{opacity:1;}
+  100%{opacity:0;}
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:40px 20px;
+}
+header h1{
+  font-size:34px;
+  color:var(--purple);
+  text-shadow:0 0 10px rgba(178,126,255,.4);
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  padding-bottom:20px;
+}
+nav a{
+  background:#f5ddff;
+  padding:8px 14px;
+  border-radius:20px;
+  text-decoration:none;
+  color:#4a306d;
+  font-weight:600;
+  border:2px solid #fff;
+  transition:.3s;
+}
+nav a:hover{
+  background:var(--pink);
+  color:#fff;
+}
+
+/* KUROMI SECTION */
+.kuromi-section{
+  width:90%;
+  max-width:780px;
+  background:white;
+  margin:40px auto;
+  padding:28px;
+  border-radius:40px 40px 25px 25px;
+  position:relative;
+  box-shadow:0 0 20px rgba(177,140,255,0.3);
+}
+
+/* Kuromi ears */
+.kuromi-section::before,
+.kuromi-section::after{
+  content:"";
+  position:absolute;
+  width:70px;
+  height:70px;
+  top:-35px;
+  background:var(--soft-pink);
+  border-radius:50% 50% 0 0;
+  border:4px solid var(--pink);
+}
+.kuromi-section::before{
+  left:35px;
+  transform:rotate(35deg);
+}
+.kuromi-section::after{
+  right:35px;
+  transform:rotate(-35deg);
+}
+
+/* PROFILE */
+.profile{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  border:6px solid var(--pink);
+  object-fit:cover;
+  display:block;
+  margin:auto;
+}
+
+/* ABOUT LIST */
+.info-list{
+  list-style:none;
+  margin-top:16px;
+}
+.info-list li{
+  background:#ffe6ff;
+  padding:10px;
+  margin:7px 0;
+  border-radius:15px;
+  border:2px solid white;
+  text-align:center;
+  font-weight:600;
+}
+
+/* -------------------- NEW SWIPEABLE SLIDER -------------------- */
+
+.slider-container{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+  margin-top:20px;
+}
+.slider-track{
+  display:flex;
+  transition:0.5s;
+}
+.slider-track img{
+  width:250px;
+  height:200px;
+  margin-right:14px;
+  object-fit:cover;
+  border-radius:20px;
+  border:5px solid white;
+  box-shadow:0 0 12px rgba(178,126,255,0.3);
+}
+
+/* ARROWS */
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#ffffffb7;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  font-size:20px;
+  color:#b27eff;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+.arrow-left{ left:5px; }
+.arrow-right{ right:5px; }
+
+/* HOBBIES */
+.hobby-box{
+  background:#ffe6ff;
+  padding:15px;
+  border-radius:20px;
+  border:2px solid white;
+  margin:16px 0;
+}
+.hobby-images{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.hobby-images img{
+  width:120px; height:120px;
+  object-fit:cover;
+  border-radius:16px;
+  border:4px solid white;
+}
+
+/* FLOATING KUROMI LEFT + RIGHT */
+.kuromi-left{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  width:95px;
+  animation:float 3s ease-in-out infinite;
+}
+
+.kuromi-right{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:95px;
+  animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+
+</style>
+</head>
+<body>
+
+<!-- CURTAIN -->
+<div id="curtain-left"></div>
+<div id="curtain-right"></div>
+<div id="welcome">Welcome to Aina’s Kuromi Diary 💗</div>
+
+<div class="kuromi-bg"></div>
+
+<header>
+  <h1>💗 Aina’s Kuromi Diary 💗</h1>
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#hobbies">Hobbies</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- ABOUT -->
+<section id="about" class="kuromi-section">
+  <img src="profile.jpg" class="profile">
+  <h2 style="text-align:center; margin-top:10px;">About Me</h2>
+
+  <ul class="info-list">
+    <li><b>Name:</b> Nuraina Ezwinisha</li>
+    <li><b>Age:</b> 20</li>
+    <li><b>From:</b> Perak, Malaysia</li>
+    <li><b>Course:</b> Diploma in Information Management (UiTM)</li>
+  </ul>
+</section>
+
+<!-- SWIPE GALLERY -->
+<section id="gallery" class="kuromi-section">
+  <h2 style="text-align:center;">Gallery</h2>
+
+  <div class="slider-container">
+    <div class="slider-track" id="track">
+      <img src="gallery1.jpg">
+      <img src="gallery2.jpg">
+      <img src="gallery3.jpg">
+      <img src="gallery4.jpg">
+      <img src="gallery5.jpg">
+      <img src="gallery6.jpg">
+    </div>
+
+    <div class="arrow arrow-left" onclick="slideLeft()">‹</div>
+    <div class="arrow arrow-right" onclick="slideRight()">›</div>
+  </div>
+</section>
+
+<!-- HOBBIES -->
+<section id="hobbies" class="kuromi-section">
+  <h2 style="text-align:center;">My Hobbies</h2>
+
+  <div class="hobby-box">
+    <h3>🎧 Listening to Music</h3>
+    <div class="hobby-images">
+      <img src="music1.jpg">
+      <img src="music2.jpg">
+    </div>
+  </div>
+
+  <div class="hobby-box">
+    <h3>📷 Taking Aesthetic Pictures</h3>
+    <div class="hobby-images">
+      <img src="aesthetic1.jpg">
+      <img src="aesthetic2.jpg">
+      <img src="aesthetic3.jpg">
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="kuromi-section">
+  <h2 style="text-align:center;">Contact Me</h2>
+  <p style="text-align:center;">Email: <b>nurainaezwinisha@gmail.com</b></p>
+  <p style="text-align:center;">Instagram: <b>@ezzwinnn</b></p>
+</section>
+
+<!-- Floating Kuromi -->
+<img src="kuromi-left.png" class="kuromi-left">
+<img src="kuromi-icon.png" class="kuromi-right">
+
+<!-- SLIDER SCRIPT -->
+<script>
+let track = document.getElementById("track");
+let position = 0;
+
+function slideRight(){
+  position -= 270;
+  if(position < -800) position = 0;
+  track.style.transform = "translateX(" + position + "px)";
+}
+
+function slideLeft(){
+  position += 270;
+  if(position > 0) position = -540;
+  track.style.transform = "translateX(" + position + "px)";
+}
+</script>
+
+</body>
+</html>
